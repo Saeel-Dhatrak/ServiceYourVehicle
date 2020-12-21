@@ -24,18 +24,19 @@
 					<th>Customer UserName</th>
 					<td><form:input path="username" /></td>
 				</tr>
-					<tr>
+				<tr>
 					<th>Customer Password</th>
 					<td><form:input path="password" /></td>
 				</tr>
-					<tr>
+				<tr>
 					<th>Customer Name</th>
 					<td><form:input path="name" /></td>
 				</tr>
-					<tr>
+				<tr>
 					<th>Customer Address</th>
 					<td><form:input path="address" /></td>
 				</tr>
+				
 			</table>
 
 			<input type="submit" value="Register">

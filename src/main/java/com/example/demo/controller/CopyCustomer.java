@@ -28,7 +28,7 @@ import com.example.demo.service.IVehicleService;
 
 
 @Controller
-@RequestMapping("/customers")
+//@RequestMapping("/customers")
 public class CopyCustomer {
 
 	@Autowired
@@ -47,28 +47,17 @@ public class CopyCustomer {
 		System.out.println("In the Constructor "+getClass().getName());
 	}
 	
-	/*@GetMapping
-	public ResponseEntity<?> listAllCustomers()
-	{
-		System.out.println("in the "+getClass().getName());
-		List<Customer> allCustomers=custService.getAllCustomers();
-		if(allCustomers.isEmpty())
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		return new ResponseEntity<>(allCustomers, HttpStatus.OK);
-	}*/
 	
-	@GetMapping("/{userName}")
-	public ResponseEntity<?> getCustomerDetails(@PathVariable String userName)
-	{
-		System.out.println("in the "+getClass().getName());
-		Optional<Customer> customerDetails = custService.findUserDetails(userName);
-		if(customerDetails.isPresent())
-			return new ResponseEntity<>(customerDetails, HttpStatus.OK);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
 	
+	
+	@RequestMapping("/")
+    public String index() {
+        return "Spring Boot Example";
+    }
+
 	@RequestMapping(value = "loadCustomerForm", method = RequestMethod.GET)
 	ModelAndView loadCustomerForm() {
+		System.out.println("In mvc of customer");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("CreateCustomer");
 		modelAndView.addObject("customerObj", new Customer());
@@ -76,144 +65,7 @@ public class CopyCustomer {
 	}
 
 	
-	@PostMapping
-	public ResponseEntity<?> signUpCustomer(@RequestBody Customer newCustomer)
-	{
-		System.out.println("in the "+getClass().getName());
-		try {
-			Customer newlyAdded = custService.addNewCustomer(newCustomer);
-			return new ResponseEntity<>(newlyAdded, HttpStatus.OK);
-		}catch(RuntimeException e)
-		{
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
 	
-	@PutMapping("/{customerId}")
-	public ResponseEntity<?> updateCustomer(@PathVariable int customerId,@RequestBody Customer oldDetails)
-	{
-		System.out.println("in the "+getClass().getName());
-		try {
-			Customer updatingDetails=custService.updateCustomerDetails(customerId, oldDetails);
-			return new ResponseEntity<>(updatingDetails, HttpStatus.OK);
-		}catch(RuntimeException e)
-		{
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	@DeleteMapping("/{custId}")
-	public ResponseEntity<?> deRegisterCustomer(@PathVariable int custId)
-	{
-		System.out.println("in the "+getClass().getName());
-		try {
-		custService.deleteCustomer(custId);
-		return new ResponseEntity<>(HttpStatus.OK);
-		}
-			catch(RuntimeException e)
-		{
-		e.printStackTrace();
-		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	
-	}
-	
-	//Get Vehicle
-	@GetMapping("/vehicle/{id}")
-	public ResponseEntity<?>getVehicle(@PathVariable int id){
-		System.out.println("in the "+getClass().getName());
-		Optional<Vehicle>vehicle=Service.findById(id);
-		
-		if(vehicle.isPresent())
-			return new ResponseEntity<>(vehicle.get(),HttpStatus.OK);
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	
-	//Adding Vehicle
-	@PostMapping("/addVehicle")
-	public ResponseEntity<?>addVehicle(@RequestBody Vehicle entry)
-	{
-		System.out.println("in the "+getClass().getName());
-		try {
-			Vehicle vehicle =Service.addVehicle(entry);
-			return new ResponseEntity<>(vehicle,HttpStatus.OK);
-		}
-		catch(RuntimeException e)
-		{
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	//updating vehicle
-	@PutMapping("/updateVehicle/{id}")
-	public ResponseEntity<?>updateVehicle(@PathVariable int id, @RequestBody Vehicle vehicle)
-	{
-		System.out.println("in the "+getClass().getName());
-		try {
-			Vehicle  v=Service.updateVehicle(id, vehicle);
-			return new ResponseEntity<>(v,HttpStatus.OK);
-		}catch(RuntimeException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	//deleting vehicle
-	@DeleteMapping("/deleteVehicle/{id}")
-	public String deleteVehicle(@PathVariable int id) {
-		System.out.println("in the "+getClass().getName());
-		return Service.deleteVehicle(id);
-	}
-	
-	
-	
-	
-	//sparepart all
-	@GetMapping("/getSparePart")
-	public ResponseEntity<?> listAllSpare()
-	{
-		System.out.println("in the "+getClass().getName());
-		List<SparePart> allSpare=spareService.getAllSparePart();
-		if(allSpare.isEmpty())
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		return new ResponseEntity<>(allSpare, HttpStatus.OK);
-	}
-	
-	//SPAREPART BY NAME
-	@GetMapping("/getSparePart/{partName}")
-	public ResponseEntity<?> getSparePart(@PathVariable String partName)
-	{
-		System.out.println("in the "+getClass().getName());
-		Optional<SparePart> spareDetails = spareService.findByPartName(partName);
-		if(spareDetails.isPresent())
-			return new ResponseEntity<>(spareDetails, HttpStatus.OK);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
-
-	
-	//Servicing Type
-	@GetMapping("/allServicingType")
-	public ResponseEntity<?> listAllServicingType()
-	{
-		System.out.println("in the "+getClass().getName());
-		List<ServicingType> allType=serviceType.getAllServicingType();
-		if(allType.isEmpty())
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		return new ResponseEntity<>(allType, HttpStatus.OK);
-	}
-	
-	@GetMapping("/getServicingType/{typeName}")
-	public ResponseEntity<?> getServicingType(@PathVariable String typeName)
-	{
-		System.out.println("in the "+getClass().getName());
-		Optional<ServicingType> type = serviceType.findByType(typeName);
-		if(type.isPresent())
-			return new ResponseEntity<>(type, HttpStatus.OK);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	}
 
 	
 	

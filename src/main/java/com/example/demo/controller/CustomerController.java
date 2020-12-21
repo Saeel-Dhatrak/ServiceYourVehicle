@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+/*package com.example.demo.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +54,7 @@ public class CustomerController {
 		if(allCustomers.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<>(allCustomers, HttpStatus.OK);
-	}*/
+	}
 	
 	@GetMapping("/{userName}")
 	public ResponseEntity<?> getCustomerDetails(@PathVariable String userName)
@@ -209,3 +209,4 @@ public class CustomerController {
 	
 		
 }
+*/
